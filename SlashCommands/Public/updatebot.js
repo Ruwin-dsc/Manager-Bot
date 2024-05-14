@@ -28,6 +28,7 @@ module.exports = {
         const cle = args.getString('key')
 
         bot.db.query(`SELECT * FROM cle WHERE code = '${cle}'`, async (err, req) => {
+          const day = req[0].day
             if(req.length < 1) {
                 const embed = new Discord.EmbedBuilder()
                 .setTitle('`❌` ▸ Clé invalide')
@@ -54,9 +55,9 @@ module.exports = {
             return message.reply({ embeds: [embed], ephemeral: true })
             } else {
                 if(req[0].expired == 'true') {
-                    newtime = Math.floor(Date.now() / 1000) +  Math.floor(ms(req[0].day) / 1000)
+                    newtime = Math.floor(Date.now() / 1000) +  Math.floor(ms(day) / 1000)
                 } else {
-                    newtime = Number(req[0].time) + Math.floor(ms(req[0].day) / 1000)
+                    newtime = Number(req[0].time) + Math.floor(ms(day) / 1000)
                 }
                 const checkstart = require('../../Utils/lauchChildProcess')(`./UsersBots/${args.getString('identifiant')}/index.js`, 'checkstart')
                 bot.db.query(`UPDATE bot SET time = ?, expired = ? WHERE botId = ?`, [newtime, 'false', args.getString('identifiant')]);
