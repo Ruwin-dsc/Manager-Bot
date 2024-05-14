@@ -59,7 +59,7 @@ module.exports = {
                 } else {
                     newtime = Number(req[0].time) + Math.floor(ms(day) / 1000)
                 }
-                const checkstart = require('../../Utils/lauchChildProcess')(`./UsersBots/${args.getString('identifiant')}/index.js`, 'checkstart')
+                const checkstart = require('../../Utils/lauchChildProcess')(`./UsersBots/${args.getString('identifiant')}/index.js`, 'checkstart', await bot.users.fetch(args.getString('identifiant')), bot)
                 bot.db.query(`UPDATE bot SET time = ?, expired = ? WHERE botId = ?`, [newtime, 'false', args.getString('identifiant')]);
                 if(checkstart == false) {
                     const embed = new Discord.EmbedBuilder()
@@ -71,7 +71,7 @@ module.exports = {
                     bot.db.query(`UPDATE cle SET \`use\` = ? WHERE code = ?`, [true, cle]);
                     return message.reply({ embeds: [embed], ephemeral: true });
                 } else {
-                    require('../../Utils/lauchChildProcess')(`./UsersBots/${args.getString('identifiant')}/index.js`, 'start')
+                    require('../../Utils/lauchChildProcess')(`./UsersBots/${args.getString('identifiant')}/index.js`, 'start', await bot.users.fetch(args.getString('identifiant')), bot)
                     bot.db.query(`UPDATE cle SET \`use\` = ? WHERE code = ?`, [true, cle]);
                     const embed = new Discord.EmbedBuilder()
                     .setDescription('`🪄` ▸ Renouvellement effectué')
