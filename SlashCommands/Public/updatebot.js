@@ -1,3 +1,4 @@
+const config = require('../../config.json');
 const Discord = require('discord.js');
 const ms = require('ms');
 const config = require('../../config.json');
@@ -35,7 +36,7 @@ module.exports = {
                 .setTitle('`❌` ▸ Clé invalide')
                 .setDescription('> *La clé fournie n\'est pas valide.*')
                 .setColor(config.color)
-                return message.reply({ embeds: [embed], ephemeral: true })
+                return message.reply({ embeds: [embed], ephemeral: true })
                 } else {
               if(req[0].use !== 'false') {
               const embed = new Discord.EmbedBuilder()
@@ -43,7 +44,7 @@ module.exports = {
               .setDescription('> *La clé fournie est déjà utilisée.*')
               .setColor(config.color)
               .setFooter({ text: message.user.username, iconURL: message.user.displayAvatarURL({ dynamic: true })})
-            return message.reply({ embeds: [embed], ephemeral: true })
+            return message.reply({ embeds: [embed], ephemeral: true })
               }
         await bot.db.query(`SELECT * FROM bot WHERE botId = '${args.getString('identifiant')}'`, async (err, req) => {
             if(req.length < 1) {

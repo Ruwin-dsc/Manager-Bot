@@ -156,7 +156,7 @@ async function copierArborescence(sourceDir, destinationParentDir, destinationFo
     const configachanger = require(`../../UsersBots/${client.user.id}/config.json`)
     if(configachanger) configachanger.token = token, configachanger.buyers.push(message.user.id)
 
-    fs.writeFileSync(`./usersbots/${client.user.id}/config.json`, JSON.stringify(configachanger, null, 2));
+    fs.writeFileSync(`./UsersBots/${client.user.id}/config.json`, JSON.stringify(configachanger, null, 2));
 
     await message.channel.send({ embeds: [embedStart5] })
     await message.channel.send({ embeds: [embedStart6] })
@@ -206,3 +206,4 @@ async function copierArborescence2(sourceDir, destinationParentDir, destinationF
     }
   }
 }
+
